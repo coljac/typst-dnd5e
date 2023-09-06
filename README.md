@@ -2,6 +2,8 @@
 
 This is a [Typst](https://typst.app) template for DND 5E content, suitable for [DMs Guild](https://www.dmsguild.com) and the like.
 
+The template is called "dragonling" and can be imported as: `#import "@preview/dragonling:0.1.0": *`
+
 See the [example](https://github.com/coljac/typst-dnd5e) which should mostly be self explanatory - it includes examples of tables, stat blocks and breakout boxes, and should serve as a good starting point for your own content. 
 
 ![example_img](https://github.com/coljac/typst-dnd5e/assets/191407/76bbb6fc-70fb-4766-b40c-37b1a090422b)
