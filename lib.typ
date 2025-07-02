@@ -12,20 +12,20 @@
               fancy_author: false,
   body) = {
   set document(author: author, title: title)
-
+  set par(spacing: 0.7em, first-line-indent: (amount: 1.5em, all: false))
   // set heading(numbering: "1.1")
   
-  show heading: it => text(
+  show heading: it => block(text(
     size: 1.5em,
     fill: darkred,
     weight: "regular",
     // style: "italic",
-    smallcaps(it.body)
-  )
+    smallcaps(it.body),
+  ))
 
   show heading.where(
     level: 2
-  ): it => text(
+  ): it => block(text(
     size: 1.5em,
     
     fill: darkred,
@@ -33,7 +33,7 @@
     
   )[
     #box(width: 100%, inset: (bottom: 4pt), stroke: (bottom: 1pt + darkyellow))[#smallcaps(it.body)]  
-  ]
+  ])
 
   // Page settings
   set page(paper,
@@ -150,6 +150,16 @@ columns: 1)[
   }
   table(stroke: none, columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr), inset: 0pt, row-gutter: 5pt, align: center, ..content)
 }
+
+#let boxed_text(header, contents) = [
+  #box(inset: 10pt, fill: rgb("#fefff9"), stroke: (right: 1pt + darkyellow, left: 1pt + darkyellow), width: 100%)[
+    #set par(spacing: .6em, first-line-indent: 1.5em)
+    #set text(size: 10pt) 
+    #heading(outlined: false, level: 3, header)
+    #v(0.5em)
+    #contents
+  ]
+]
 
 #let statbox(stats) = [
   #box(inset: 12pt, fill: white, stroke: 1pt, width: 100%)[
