@@ -43,11 +43,12 @@
     number-align: start,
     columns: 2,
     background: image("img/background.jpg", width: 110%),
-    footer: locate(loc => {
-      if loc.page() > 1 {
+    footer: context {
+      if here().page() > 1 {
         place(left+bottom, image("img/footer.svg", width: 100%))
-        align(center)[#loc.position().page]
-      }})
+        align(center)[#here().page()]
+      }
+    }
     )
   if subtitle.len() > 0 {
     subtitle = subtitle + "\n"
@@ -152,7 +153,7 @@ columns: 1)[
 
 #let statbox(stats) = [
   #box(inset: 12pt, fill: white, stroke: 1pt, width: 100%)[
-    #show par: set block(spacing: .6em)
+    #set par(spacing: .6em)
     #set text(size: 10pt) 
     #heading(outlined: false, level: 3, stats.name)
     
@@ -180,7 +181,7 @@ columns: 1)[
     #for section in sections {
       if section in stats.keys() {
         block[
-          #show par: set block(spacing: 1em)
+          #set par(spacing: 1em)
           #text(size: 1.3em, fill: darkred)[#box(width:100%, inset: (bottom: 3pt), stroke: (bottom: 1pt+darkyellow))[#smallcaps(section)]]
           #for action in stats.at(section) {
             [_*#action.at(0).*_ #action.at(1) \ ]
@@ -192,7 +193,7 @@ columns: 1)[
 ]
 
 #let spell(spl) = [
-  #show par: set block(spacing: .6em)
+  #set par(spacing: .6em)
   #heading(outlined: false, level: 3, spl.name)
 
   _#spl.spell_type _

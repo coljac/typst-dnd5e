@@ -1,9 +1,11 @@
-[package] 
+[package]
 name = "dragonling"
 version = "0.1.0"
 entrypoint = "lib.typ"
 authors = ["Colin Jacobs"]
 license = "MIT"
-description = "Dungeons & Dragons 5E module template."
+description = "A comprehensive Typst template for creating Dungeons & Dragons 5E content including stat blocks, spell cards, and adventure modules."
 repository = "https://github.com/coljac/typst-dnd5e"
-keywords = ["roleplaying", "D&D", "Dungeons & Dragons"]
+keywords = ["roleplaying", "dnd", "dungeons-dragons", "rpg", "template", "gaming"]
+categories = ["templates"]
+compiler = "0.12.0"
