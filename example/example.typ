@@ -1,4 +1,4 @@
-#import "@preview/dragonling:0.1.0": *
+#import "@local/dragonling:0.1.0": *
 
 #show: dndmodule.with(
   title: "A Date with Destiny",
@@ -50,7 +50,7 @@
 
 *And now we want a page with a big image at the top.*
 
-#pagewithfig(top, image("img/dragongold.png", width: 120%))[
+#topfig(image("img/dragongold.png", width: 140%))
 
 And here it is.
 #lorem(100)
@@ -59,20 +59,22 @@ And here it is.
 
 #lorem(204)
 
-
 #lorem(115)
-]
-#pagewithfig(bottom, image("img/swordtorn.png", width: 120%))[
+
+
+
 And more here!
 #breakoutbox("Look here!")[#lorem(44)]
 
 #lorem(390)
-]
 
 // #lorem(402)
 #breakoutbox("Something to note")[#lorem(133)]
 #lorem(300)
 
+#bottomfig(image("img/swordtorn.png", width: 140%))
+
+#lorem(400)
 #statbox((
   name: "Monster",
   description: [Large monstrosity, neutral evil],
