@@ -6,7 +6,7 @@ The template is called "dragonling" and can be imported as: `#import "@preview/d
 
 **Note:** This package has been updated for compatibility with the latest version of Typst and is ready for submission to Typst Universe.
 
-See the [example](https://github.com/coljac/typst-dnd5e) which should mostly be self explanatory - it includes examples of tables, stat blocks and breakout boxes, and should serve as a good starting point for your own content. 
+See the [example](https://github.com/coljac/typst-dnd5e) which should mostly be self explanatory - it includes examples of tables, stat blocks and breakout boxes, and should serve as a good starting point for your own content.
 
 ![example_img](https://github.com/coljac/typst-dnd5e/assets/191407/76bbb6fc-70fb-4766-b40c-37b1a090422b)
 
@@ -17,7 +17,7 @@ The `dndmodule` template sets up your document for you. The arguments you may wa
 - `title`: The document's title, this will be rendered as text. Omit if you already have cover art with the title.
 - `subtitle`: A slug line for down the bottom of the front cover.
 - `author`: Your name.
-- `cover`: An `image` to use on the front cover 
+- `cover`: An `image` to use on the front cover
 - `fancy_author`: This will put the author's name in that red flame thingy that D&D books tend to have.
 - `logo`: Supply an `image` to put the logo on the front page.
 - `font_size`: Defaults to `12pt`.
@@ -48,13 +48,13 @@ From there, just about everything you need can be done with basic Typst markup. 
       Challenge: [5 (1800 XP)]
   ),
   traits: (
-    ("Trait name", [Trait desription]), 
+    ("Trait name", [Trait desription]),
     // ..
     ("Trait name", [Trait desription])
 ),
   Actions: (
-    ("Multiattack", [While the monster remains alive, it is a thorn in the party's side.]), 
-    ("Saliva", [If a character is eaten by the monster, it takes 1d10 saliva damage per round.]), 
+    ("Multiattack", [While the monster remains alive, it is a thorn in the party's side.]),
+    ("Saliva", [If a character is eaten by the monster, it takes 1d10 saliva damage per round.]),
     ("Tentacle squeeze", [If the monster has captured an enemy, it can squeeze them for 1d12 crushing damage.])
   )
 ))
@@ -67,10 +67,10 @@ From there, just about everything you need can be done with basic Typst markup. 
   name: "",
   spell_type: [2nd level ...],
   properties: (
-    ("Casting time", []), 
-    ("Range", []), 
-    ("Duration", []), 
-    ("Components", []), 
+    ("Casting time", []),
+    ("Range", []),
+    ("Duration", []),
+    ("Components", []),
   ),
   description: [Spell effects description]
   )
@@ -79,22 +79,15 @@ From there, just about everything you need can be done with basic Typst markup. 
 
 ## Page-wide images and tables
 
-Typst currently has one significant limitation: it is not possible in 2-column mode to include a figure that spans both columns and floats (see [this issue](https://github.com/typst/typst/issues/553)). 
+There are two helper functions included with the template, `topfig` and `bottomfig`. This code:
 
-I am hopeful for a fix in the near future. Apart from simply using one column throughout, the workaround for the time being is to insert a page break, start a new page with 1 column, insert a floating image, then continue with the text in a 2-column block. A helper function included, to be used like so:
-
-```
-// A page break will happen here.
-#pagewithfig(top, image("images/my_image.png", width: 100%))[
-  The text that appears on the page goes here; you can include more text that will keep flowing, up to the end of the document, but you will need to close the content block if you need another image page.
-]
+```typst
+#bottomfig(image("swordtorn.png", width=140%))
 ```
 
-However, you may have best results fiddling around with it yourself manually. 
+will insert the image at the bottom of the page, spanning both columns like so, and will suppress the footer for that page.
 
-The downside with this method is that you must explicitly divide the content into pages in the right amounts, so that there is not a huge amount of whitespace on the page preceding the one with the image. This is only workable once the content is more or less finalized. 
-
-When this issue is fixed in Typst, it should just work without any need for this temmplate to be updated.
+![Bottom fig](https://github.com/user-attachments/assets/8ed0d215-245c-49d9-987a-4c8faf3392c7)
 
 ## Acknowledgements
 

@@ -1,6 +1,13 @@
 #let darkred = rgb("#540808")
 #let darkyellow = rgb("#fcba03")
 #let dnd = smallcaps("Dungeons & Dragons")
+#let footer_content = context {
+      if here().page() > 1 {
+        place(left+bottom, image("img/footer.svg", width: 100%))
+        align(center)[#here().page()]
+      }
+    }
+#let footer = state("footer", footer_content)
 
 #let dndmodule(title: "", 
               author: "", 
@@ -10,6 +17,7 @@
               paper: "a4",
               logo: none,
               fancy_author: false,
+              add_title: true,
   body) = {
   set document(author: author, title: title)
   set par(spacing: 0.7em, first-line-indent: (amount: 1.5em, all: false))
@@ -43,11 +51,8 @@
     number-align: start,
     columns: 2,
     background: image("img/background.jpg", width: 110%),
-    footer: context {
-      if here().page() > 1 {
-        place(left+bottom, image("img/footer.svg", width: 100%))
-        align(center)[#here().page()]
-      }
+    footer: context { footer.get()
+      footer.update(footer_content)
     }
     )
   if subtitle.len() > 0 {
@@ -55,13 +60,14 @@
   }
   
   // FRONT PAGE
-  /* page(background: image(cover, height: 100%), margin: (top: 10mm, bottom: 5mm), */
   page(background: cover, margin: (top: 10mm, bottom: 5mm),
 columns: 1)[
-    #place(
+  #if add_title {
+    place(
       top + center,
       box(fill: rgb("#00000066"), inset: 10%, text(fill: white, size: 60pt, weight: 800, upper(title)))
     )
+   }
 
     #if subtitle.len() > 0 {
     place(
@@ -111,12 +117,13 @@ columns: 1)[
      (bottom: -10pt)
    }
 }
-#let pagewithfig(where, figure, contents) = [
-    #set page(columns: 1, margin: marginset(where))  
-    #pagebreak()
-    #place(where+center, float: true, figure)
-    #block[#columns(2)[#contents]]
+
+#let topfig(figure) = [ #place(top + center, dy: -7em, dx:0em, float: true, scope: "parent", clearance: -6em, figure) ]
+#let bottomfig(figure) = [ // Suppress the footer first
+  #context footer.update("")
+  #place(bottom + center, dy: 7em, dx:0em, float: true, scope: "parent", clearance: -6em, figure)
 ]
+
 
 #let breakoutbox(title, contents) = [#place(auto, float: true)[
   #box(inset: 10pt, width: 100%, stroke: (top: 2pt, bottom: 2pt), fill: rgb("#ddeedd"))[
