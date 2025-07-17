@@ -126,6 +126,7 @@ columns: 1)[
 
 
 #let breakoutbox(title, contents) = [#place(auto, float: true)[
+  #set par(first-line-indent: 0em, spacing: 0.6em)
   #box(inset: 10pt, width: 100%, stroke: (top: 2pt, bottom: 2pt), fill: rgb("#ddeedd"))[
     #if title.len() > 0 {
       align(left, smallcaps[*#title*])
@@ -210,7 +211,7 @@ columns: 1)[
 ]
 
 #let spell(spl) = [
-  #set par(spacing: .6em)
+  #set par(spacing: .6em, first-line-indent: 0em)
   #heading(outlined: false, level: 3, spl.name)
 
   _#spl.spell_type _
@@ -222,6 +223,7 @@ columns: 1)[
        
       }
   #v(0.5em)
+  
   #spl.description
   
 ]
