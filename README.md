@@ -2,9 +2,9 @@
 
 This is a [Typst](https://typst.app) template for DND 5E content, suitable for [DMs Guild](https://www.dmsguild.com) and the like.
 
-The template is called "dragonling" and can be imported as: `#import "@preview/dragonling:0.1.0": *`
+The template is called "dragonling" and can be imported as: `#import "@preview/dragonling:0.2.0": *`
 
-**Note:** This package has been updated for compatibility with the latest version of Typst and is ready for submission to Typst Universe.
+**Note:** This package has been updated for compatibility with the latest version of Typst (0.13) and is ready for submission to Typst Universe.
 
 See the [example](https://github.com/coljac/typst-dnd5e) which should mostly be self explanatory - it includes examples of tables, stat blocks and breakout boxes, and should serve as a good starting point for your own content.
 
@@ -22,6 +22,7 @@ The `dndmodule` template sets up your document for you. The arguments you may wa
 - `logo`: Supply an `image` to put the logo on the front page.
 - `font_size`: Defaults to `12pt`.
 - `paper`: Defaults (sensibly) to `a4` (Americans, you might want `us-letter`).
+- `add_title`: (bool) Whether to print the title on the front page. Set to false if you've made your own image, for instance. 
 
 From there, just about everything you need can be done with basic Typst markup. Some convenience functions are provided in the template:
 
