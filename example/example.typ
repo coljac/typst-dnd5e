@@ -23,7 +23,18 @@
 #lorem(25)
 #pagebreak()
 
-= Adventure awaits!
+#place(
+  top + center,
+  float: true,
+  scope: "parent",
+  clearance: 2em,
+)[
+= A headline that grabs your attention
+]
+
+
+
+== Adventure awaits!
 
 #dnd#super("TM") is a role playing game.
 #lorem(180) OK!
