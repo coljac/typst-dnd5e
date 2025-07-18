@@ -95,7 +95,8 @@ columns: 1)[
 }
 
 
-#let dndtab(name, columns: (1fr, 4fr), ..contents) = [
+#let dndtab(name, columns: (1fr, 4fr), breakable: false, ..contents) = [
+  #block(breakable: breakable)[
   *#smallcaps(text(size: 1.3em)[#name])*
   #v(-1em)
   #table(
@@ -109,14 +110,8 @@ columns: 1)[
   // align: horizon,
   ..contents
   )
-]
-#let marginset(where) = {
-   if where == top {
-     (top: -10pt)
-   } else {
-     (bottom: -10pt)
-   }
-}
+]]
+
 
 #let topfig(figure) = [ #place(top + center, dy: -7em, dx:0em, float: true, scope: "parent", clearance: -6em, figure) ]
 #let bottomfig(figure) = [ // Suppress the footer first
