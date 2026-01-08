@@ -23,6 +23,11 @@ The `dndmodule` template sets up your document for you. The arguments you may wa
 - `font-size`: Defaults to `12pt`.
 - `paper`: Defaults (sensibly) to `a4` (Americans, you might want `us-letter`).
 - `add-title`: (bool) Whether to print the title on the front page. Set to false if you've made your own image, for instance.
+- `bg`: Allows to change the backgroud. The possible values are:
+      1. `default`: loads the default parchment background.
+      2. `none`: no image for the background (print-friendly).
+      3. `<image_path>`: use an image you provide as background
+- `lang`: Defaults to `en`. Changes the text in the `statbox` according to the language (e.g. Armor Class, Speed, etc.). You need to provide two-letter code, e.g., en, it, de, etc. For now, only `en` and `it` languages are available. If you wish to contribute with your language, follow the English language template placed in `languages/en.toml` file.
 
 From there, just about everything you need can be done with basic Typst markup. Some convenience functions are provided in the template:
 
@@ -32,7 +37,7 @@ From there, just about everything you need can be done with basic Typst markup. 
 
 `breakoutbox(title, contents)`: Inserts a box with coloured background, and the optional title in small caps.
 
-`statbox(stats)`: Accepts a dictionary with the following format. The `skillblock` and `traits` can contain arbitrary keys. After the traits, any of "Actions", "Reactions", "Limited Usage", "Equipment", or "Legendary Actions" will be subsequently shown if present.
+`statbox(stats)`: Accepts a dictionary with the following format. The `skillblock` and `traits` can contain arbitrary keys. After the traits, any of "Actions", "Reactions", "Limited Usage", "Equipment", or "Legendary Actions" will be subsequently shown if present. Notice that if you have changed the language of the template, any word mentioned before must be written in the chosen language. E.g., "Actions"-> "Azioni", and so on. The correspondences between English and other languages are inside the corresponding language file in `languages/<language>.toml` file.
 
 ```
 #statbox((

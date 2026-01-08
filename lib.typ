@@ -9,6 +9,9 @@
     }
 #let footer = state("footer", footer-content)
 
+// initialize the template with the default language
+#let language = state("language", toml("languages/en.toml"))
+
 #let dndmodule(title: "", 
               author: "", 
               subtitle: "", 
@@ -18,6 +21,8 @@
               logo: none,
               fancy-author: false,
               add-title: true,
+              bg: "default",
+              lang: "en",
   body) = {
   set document(author: author, title: title)
   set par(spacing: 0.7em, first-line-indent: (amount: 1.5em, all: false))
@@ -43,18 +48,51 @@
     #box(width: 100%, inset: (bottom: 4pt), stroke: (bottom: 1pt + darkyellow))[#smallcaps(it.body)]  
   ])
 
+  // Language setting
+  // set the language if different from english
+  // the name of the language file must be <language>.toml, e.g. en.toml, it.toml, de.toml, etc
+  if lang != "en" {
+
+    // read the language file
+    let lang_path = "languages/" + lang + ".toml"
+    let lang_file = toml(lang_path)
+
+    // update the language
+    language.update(lang_file)
+    
+  }
+
   // Page settings
-  set page(paper,
+
+  // set the background according to the parameter:
+  // default: use the default parchment background
+  // none: print-friendly white background
+  // an image path: use the provided image as background
+  
+  let bg_img = none
+  if bg == "default"{
+
+    bg_img = image("img/background.jpg", width: 110%)
+  }
+  else if bg == none{
+    bg_img = bg
+  }
+  else{
+    bg_img = bg
+  }
+ 
+    set page(paper,
     flipped: false,
     margin: (left: 15mm, right: 15mm, top: 30mm, bottom: 30mm),
     numbering: "1",
     number-align: start,
     columns: 2,
-    background: image("img/background.jpg", width: 110%),
+    background: bg_img,
     footer: context { footer.get()
       footer.update(footer-content)
     }
     )
+
   if subtitle.len() > 0 {
     subtitle = subtitle + "\n"
   }
@@ -171,11 +209,11 @@ columns: 1)[
     #heading(outlined: false, level: 3, stats.name)
     
     _ #stats.description _
-
+    
     #line(stroke: 2pt + darkred, length: 100%)
-    #text(fill: darkred)[*Armor Class*] #stats.ac\
-    #text(fill: darkred)[*Hit Points*] #stats.hp\
-    #text(fill: darkred)[*Speed*] #stats.speed\
+    #text(fill: darkred)[*#context language.get().stats.ac*] #stats.ac\
+    #text(fill: darkred)[*#context language.get().stats.hp*] #stats.hp\
+    #text(fill: darkred)[*#context language.get().stats.speed*] #stats.speed\
     
     #line(stroke: 2pt + darkred, length: 100%)
     #stats-table(stats.stats)
@@ -189,9 +227,10 @@ columns: 1)[
       [ _*#trait.at(0).*_ #trait.at(1)]
     }
     
-    #let sections = ("Actions", "Reactions", "Limited Usage", "Equipment", "Legendary Actions")
-    
-    #for section in sections {
+
+  #context{
+    let sections = (language.get().sections.actions, language.get().sections.reactions, language.get().sections.limited_usage, language.get().sections.equip, language.get().sections.legendary_act)
+    for section in sections {
       if section in stats.keys() {
         block[
           #set par(spacing: 1em)
@@ -202,6 +241,9 @@ columns: 1)[
        ]
      }
    }
+  } 
+
+
  ]   
 ]
 
