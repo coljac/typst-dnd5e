@@ -2,7 +2,7 @@
 
 This is a [Typst](https://typst.app) template for DND 5E content, suitable for [DMs Guild](https://www.dmsguild.com) and the like.
 
-The template is called "dragonling" and can be imported as: `#import "@preview/dragonling:0.2.0": *`
+The template is called "dragonling" and can be imported as: `#import "@preview/dragonling:0.3.0": *`
 
 **Note:** This package has been updated for compatibility with the latest version of Typst (0.13) and is ready for submission to Typst Universe.
 
@@ -23,6 +23,8 @@ The `dndmodule` template sets up your document for you. The arguments you may wa
 - `font-size`: Defaults to `12pt`.
 - `paper`: Defaults (sensibly) to `a4` (Americans, you might want `us-letter`).
 - `add-title`: (bool) Whether to print the title on the front page. Set to false if you've made your own image, for instance.
+- `bg`: Background for content pages. `"default"` (the parchment, default), `none` for a print-friendly white background, or pass an `image(...)` to use your own.
+- `lang`: Two-letter language code for localised labels in `statbox` and `npcbox` (Armor Class, Description, etc.). Defaults to `"en"`. `"it"` ships in the box; add your own at `languages/<code>.toml` modeled on `languages/en.toml`.
 
 From there, just about everything you need can be done with basic Typst markup. Some convenience functions are provided in the template:
 
@@ -61,6 +63,24 @@ From there, just about everything you need can be done with basic Typst markup. 
 ))
 ```
 
+`npcbox(npc)`: A card for non-player characters. All fields except `name` are optional — omit them to skip the corresponding section. Stats use the same auto-calculated modifier table as `statbox`.
+
+```
+#npcbox((
+  name: "Old Maggie of the Marsh",
+  race: [Human],
+  class: [Hedge witch],
+  alignment: [Chaotic Good],
+  stats: (STR: 9, DEX: 11, CON: 10, INT: 15, WIS: 17, CHA: 13),
+  description: [A wizened crone with bright, knowing eyes...],
+  background: [Born and raised in the marsh village...],
+  roleplay: [
+    - Speaks in proverbs and riddles.
+    - Always offers tea.
+  ],
+))
+```
+
 `spell`: Accepts a dictionary as follows; the properties are all optional:
 
 ```
@@ -93,3 +113,7 @@ will insert the image at the bottom of the page, spanning both columns like so, 
 ## Acknowledgements
 
 Inspiration from the [DND LaTeX module](https://github.com/rpgtex/DND-5e-LaTeX-Template).
+
+## Contributors
+
+- [@neuromancer89](https://github.com/neuromancer89) — `bg` parameter and the localisation system (`lang` parameter, `languages/*.toml`).

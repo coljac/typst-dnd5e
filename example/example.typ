@@ -1,4 +1,4 @@
-#import "@preview/dragonling:0.2.0": *
+#import "@preview/dragonling:0.3.0": *
 
 #show: dndmodule.with(
   title: "A Date with Destiny",
@@ -114,6 +114,34 @@ And more here!
 == A monster
 
 #lorem(200)
+
+= Notable NPCs
+
+#npcbox((
+  name: "Old Maggie of the Marsh",
+  race: [Human],
+  class: [Hedge witch],
+  alignment: [Chaotic Good],
+  stats: (STR: 9, DEX: 11, CON: 10, INT: 15, WIS: 17, CHA: 13),
+  description: [A wizened crone with bright, knowing eyes and hands stained green from years of brewing. She wears a patched shawl and rarely steps outside without her crooked walking stick.],
+  background: [Born and raised in the marsh village, Maggie has been the local wise-woman for as long as anyone can remember. Some say she once turned a tax collector into a frog; she neither confirms nor denies it.],
+  roleplay: [
+    - Speaks in proverbs and riddles ("A still pond hides the deepest fish.")
+    - Always offers tea, and is mildly offended if it's refused.
+    - Knows everyone's secrets, but only trades them for favours.
+  ],
+))
+
+#npcbox((
+  name: "Captain Bren Holloway",
+  race: [Half-elf],
+  class: [Veteran],
+  description: [A weather-beaten soldier with a missing left ear and a crooked smile. Wears a faded militia tabard over well-kept chain.],
+  roleplay: [
+    - Punctuates every sentence with "right then".
+    - Trusts the party only after they've bought him a drink.
+  ],
+))
 
 = Spells
 

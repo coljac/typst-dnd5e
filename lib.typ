@@ -9,20 +9,28 @@
     }
 #let footer = state("footer", footer-content)
 
-#let dndmodule(title: "", 
-              author: "", 
-              subtitle: "", 
+#let language = state("language", toml("languages/en.toml"))
+
+#let dndmodule(title: "",
+              author: "",
+              subtitle: "",
               cover: none,
               font-size: 12pt,
               paper: "a4",
               logo: none,
               fancy-author: false,
               add-title: true,
+              bg: "default",
+              lang: "en",
   body) = {
   set document(author: author, title: title)
   set par(spacing: 0.7em, first-line-indent: (amount: 1.5em, all: false))
   // set heading(numbering: "1.1")
-  
+
+  if lang != "en" {
+    language.update(toml("languages/" + lang + ".toml"))
+  }
+
   show heading: it => block(text(
     size: 1.5em,
     fill: darkred,
@@ -35,13 +43,19 @@
     level: 2
   ): it => block(text(
     size: 1.5em,
-    
+
     fill: darkred,
     weight: "regular",
-    
+
   )[
-    #box(width: 100%, inset: (bottom: 4pt), stroke: (bottom: 1pt + darkyellow))[#smallcaps(it.body)]  
+    #box(width: 100%, inset: (bottom: 4pt), stroke: (bottom: 1pt + darkyellow))[#smallcaps(it.body)]
   ])
+
+  let bg-img = if bg == "default" {
+    image("img/background.jpg", width: 110%)
+  } else {
+    bg
+  }
 
   // Page settings
   set page(paper,
@@ -50,7 +64,7 @@
     numbering: "1",
     number-align: start,
     columns: 2,
-    background: image("img/background.jpg", width: 110%),
+    background: bg-img,
     footer: context { footer.get()
       footer.update(footer-content)
     }
@@ -88,7 +102,7 @@ columns: 1)[
     }
   ]
   
-  set text(size: font-size, lang: "en", fill: black)
+  set text(size: font-size, lang: lang, fill: black)
 
   body
   
@@ -173,9 +187,11 @@ columns: 1)[
     _ #stats.description _
 
     #line(stroke: 2pt + darkred, length: 100%)
-    #text(fill: darkred)[*Armor Class*] #stats.ac\
-    #text(fill: darkred)[*Hit Points*] #stats.hp\
-    #text(fill: darkred)[*Speed*] #stats.speed\
+    #context [
+      #text(fill: darkred)[*#language.get().stats.ac*] #stats.ac\
+      #text(fill: darkred)[*#language.get().stats.hp*] #stats.hp\
+      #text(fill: darkred)[*#language.get().stats.speed*] #stats.speed\
+    ]
     
     #line(stroke: 2pt + darkred, length: 100%)
     #stats-table(stats.stats)
@@ -189,20 +205,69 @@ columns: 1)[
       [ _*#trait.at(0).*_ #trait.at(1)]
     }
     
-    #let sections = ("Actions", "Reactions", "Limited Usage", "Equipment", "Legendary Actions")
-    
-    #for section in sections {
-      if section in stats.keys() {
-        block[
-          #set par(spacing: 1em)
-          #text(size: 1.3em, fill: darkred)[#box(width:100%, inset: (bottom: 3pt), stroke: (bottom: 1pt+darkyellow))[#smallcaps(section)]]
-          #for action in stats.at(section) {
-            [_*#action.at(0).*_ #action.at(1) \ ]
-          }
-       ]
-     }
-   }
- ]   
+    #context {
+      let sections = (
+        language.get().sections.actions,
+        language.get().sections.reactions,
+        language.get().sections.limited_usage,
+        language.get().sections.equip,
+        language.get().sections.legendary_act,
+      )
+      for section in sections {
+        if section in stats.keys() {
+          block[
+            #set par(spacing: 1em)
+            #text(size: 1.3em, fill: darkred)[#box(width:100%, inset: (bottom: 3pt), stroke: (bottom: 1pt+darkyellow))[#smallcaps(section)]]
+            #for action in stats.at(section) {
+              [_*#action.at(0).*_ #action.at(1) \ ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+]
+
+#let npcbox(npc) = [
+  #box(inset: 12pt, fill: white, stroke: 1pt, width: 100%)[
+    #set par(spacing: .6em)
+    #set text(size: 10pt)
+    #heading(outlined: false, level: 3, npc.name)
+
+    #{
+      let parts = ()
+      if "race" in npc.keys() { parts.push(npc.race) }
+      if "class" in npc.keys() { parts.push(npc.class) }
+      if "alignment" in npc.keys() { parts.push(npc.alignment) }
+      if parts.len() > 0 {
+        emph(parts.join(", "))
+      }
+    }
+
+    #line(stroke: 2pt + darkred, length: 100%)
+
+    #if "stats" in npc.keys() {
+      stats-table(npc.stats)
+      line(stroke: 2pt + darkred, length: 100%)
+    }
+
+    #context {
+      let labels = language.get().npc
+      let sections = (
+        ("description", labels.description),
+        ("background", labels.background),
+        ("roleplay", labels.roleplay),
+      )
+      for (key, label) in sections {
+        if key in npc.keys() {
+          block(spacing: 0.8em)[
+            #text(fill: darkred, weight: 700)[#smallcaps(label)] \
+            #npc.at(key)
+          ]
+        }
+      }
+    }
+  ]
 ]
 
 #let spell(spl) = [
