@@ -1,4 +1,4 @@
-#import "@preview/dragonling:0.3.0": *
+#import "@preview/dragonling:0.3.1": *
 
 #show: dndmodule.with(
   title: "A Date with Destiny",
