@@ -150,7 +150,7 @@ columns: 1)[
   if i >= 10 {
     b = "+"
   }
-  b + str(int((i - 10)/2))
+  b + str(calc.floor((i - 10)/2))
 }
 
 #let stat-to-str(a) = {
