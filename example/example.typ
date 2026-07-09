@@ -7,7 +7,7 @@
   cover: image("img/party.png", height: 100%),
   paper: "a4",
   logo: image("img/GenericLogo.png", width: 13%),
-  fancy-author: true
+  fancy-author: true,
 )
 
 #outline(title: "Table of Contents\n")
@@ -29,7 +29,7 @@
   scope: "parent",
   clearance: 2em,
 )[
-= A headline that grabs your attention
+  = A headline that grabs your attention
 ]
 
 
@@ -55,7 +55,17 @@
 
 #lorem(85)
 
-#dndtab("Random occurences", [*d10*], [*Result*], [1], [A tingling in the extremities], [2-8], [Nothing interesting occurs], [10], [All the PCs burst into flame])
+#dndtab(
+  "Random occurences",
+  [*d10*],
+  [*Result*],
+  [1],
+  [A tingling in the extremities],
+  [2-8],
+  [Nothing interesting occurs],
+  [10],
+  [All the PCs burst into flame],
+)
 
 #lorem(150)
 
@@ -94,21 +104,36 @@ And more here!
   speed: [10ft, climb 10ft.],
   stats: (STR: 13, DEX: 14, CON: 18, INT: 5, WIS: 4, CHA: 7),
   skillblock: (
-      Skills: [Perception +6, Stealth +5],
-      Senses: [darkvision 60ft, passive Perception 13],
-      Languages: [-],
-      Challenge: [5 (1800 XP)]
+    Skills: [Perception +6, Stealth +5],
+    Senses: [darkvision 60ft, passive Perception 13],
+    Languages: [-],
+    Challenge: [5 (1800 XP)],
   ),
   traits: (
-    ("Scary Appearance", [While the monster is being ferocious, enemies are at -2 to all WIS saving throws.]), 
-    ("Reaching Tentacles", [The monster has six slimy tentacles. Each tentacle
-    can be attacked (AC 20; 10 hit points; immune to psychic damage). Destroying a tentacle makes the monster angry.])
-),
+    (
+      "Scary Appearance",
+      [While the monster is being ferocious, enemies are at -2 to all WIS saving throws.],
+    ),
+    (
+      "Reaching Tentacles",
+      [The monster has six slimy tentacles. Each tentacle
+        can be attacked (AC 20; 10 hit points; immune to psychic damage). Destroying a tentacle makes the monster angry.],
+    ),
+  ),
   Actions: (
-    ("Multiattack", [While the monster remains alive, it is a thorn in the party's side.]), 
-    ("Saliva", [If a character is eaten by the monster, it takes 1d10 saliva damage per round.]), 
-    ("Tentacle squeeze", [If the monster has captured an enemy, it can squeeze them for 1d12 crushing damage.])
-  )
+    (
+      "Multiattack",
+      [While the monster remains alive, it is a thorn in the party's side.],
+    ),
+    (
+      "Saliva",
+      [If a character is eaten by the monster, it takes 1d10 saliva damage per round.],
+    ),
+    (
+      "Tentacle squeeze",
+      [If the monster has captured an enemy, it can squeeze them for 1d12 crushing damage.],
+    ),
+  ),
 ))
 
 == A monster
@@ -149,24 +174,22 @@ And more here!
   name: "Dancing Legs",
   spell-type: [2nd level evocation],
   properties: (
-    ("Casting time", [Special]), 
-    ("Range", [Self]), 
-    ("Duration", [Until long rest]), 
-    ("Components", [V, S]), 
+    ("Casting time", [Special]),
+    ("Range", [Self]),
+    ("Duration", [Until long rest]),
+    ("Components", [V, S]),
   ),
-  description: [Your legs start dancing, and you dance compulsively, and in an experimental fashion. #lorem(20)]
-  )
-)
+  description: [Your legs start dancing, and you dance compulsively, and in an experimental fashion. #lorem(20)],
+))
 
 #spell((
   name: "Clapping Hands",
   spell-type: [2nd level evocation],
   properties: (
-    ("Casting time", [Special]), 
-    ("Range", [Self]), 
-    ("Duration", [Until long rest]), 
-    ("Components", [V, S]), 
+    ("Casting time", [Special]),
+    ("Range", [Self]),
+    ("Duration", [Until long rest]),
+    ("Components", [V, S]),
   ),
-  description: [Your legs start dancing, and you dance compulsively, and in an experimental fashion. #lorem(20)]
-  )
-)
+  description: [Your legs start dancing, and you dance compulsively, and in an experimental fashion. #lorem(20)],
+))
