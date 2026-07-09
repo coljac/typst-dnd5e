@@ -73,10 +73,11 @@
     subtitle = subtitle + "\n"
   }
   
-  // FRONT PAGE
+  // FRONT PAGE — skip entirely when there's nothing to render on it
+  if add-title and (title.len() > 0 or subtitle.len() > 0 or logo != none or fancy-author or cover != none) {
   page(background: cover, margin: (top: 10mm, bottom: 5mm),
 columns: 1)[
-  #if add-title {
+  #if title.len() > 0 {
     place(
       top + center,
       box(fill: rgb("#00000066"), inset: 10%, text(fill: white, size: 60pt, weight: 800, upper(title)))
@@ -101,6 +102,7 @@ columns: 1)[
       place(dx: -10% + 0.7cm, dy: 73% + 0.7cm)[#text(size: 18pt, fill: white, weight: 700)[by #author]]
     }
   ]
+  }
   
   set text(size: font-size, lang: lang, fill: black)
 
