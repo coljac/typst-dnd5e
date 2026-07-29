@@ -21,6 +21,6 @@ roleplay = "角色扮演提示"
 # === 自定义字体配置 ===
 [fonts]
 # 定义正文字体（支持列表，自动回退）
-body = ["Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei"]
+body = ["寒蟬錦書宋", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei"]
 # 定义标题字体
-header = ["Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei"]
+header = ["DuanNingMaoBiXiaoKai", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei"]
