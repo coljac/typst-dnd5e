@@ -27,11 +27,23 @@
   set par(spacing: 0.7em, first-line-indent: (amount: 1.5em, all: false))
   // set heading(numbering: "1.1")
 
+  // 读取语言 TOML,提取字体配置(优先级低于用户在文章中自定义的字体)
+  let lang-toml = if lang == "en" {
+    toml("languages/en.toml")
+  } else {
+    toml("languages/" + lang + ".toml")
+  }
+  let fonts-cfg = if "fonts" in lang-toml { lang-toml.fonts } else { (:) }
+  let body-fonts = if "body" in fonts-cfg { fonts-cfg.body } else { none }
+  let header-fonts = if "header" in fonts-cfg { fonts-cfg.header } else { none }
+  let header-font-args = if header-fonts != none { (font: header-fonts) } else { (:) }
+
   if lang != "en" {
-    language.update(toml("languages/" + lang + ".toml"))
+    language.update(lang-toml)
   }
 
   show heading: it => block(text(
+    ..header-font-args,
     size: 1.5em,
     fill: darkred,
     weight: "regular",
@@ -42,6 +54,7 @@
   show heading.where(
     level: 2
   ): it => block(text(
+    ..header-font-args,
     size: 1.5em,
 
     fill: darkred,
@@ -102,10 +115,14 @@ columns: 1)[
     }
   ]
   
+  // 应用正文字体(来自语言 TOML,优先级低于用户在文章中 set text(font: ...) 的自定义)
+  if body-fonts != none {
+    set text(font: body-fonts)
+  }
   set text(size: font-size, lang: lang, fill: black)
 
   body
-  
+
 }
 
 
