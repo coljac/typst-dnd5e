@@ -164,11 +164,13 @@ columns: 1)[
 
   // 应用正文字体(来自语言 TOML,优先级低于用户在文章中 set text(font: ...) 的自定义)
   // Apply body fonts from language TOML; user's #set text(font: ...) in body overrides this
+  // 注意:set 不能放在 if 块内(词法作用域不延伸到块外),改用参数字典构造后一次性 set
+  // Note: set inside an if block is lexically scoped and won't leak out; build args first
+  let text-args = (size: font-size, lang: lang, fill: black)
   if body-fonts != none {
-    set text(font: body-fonts)
+    text-args.font = body-fonts
   }
-  // 设置字号、语言、文字颜色 / Set font size, language, text color
-  set text(size: font-size, lang: lang, fill: black)
+  set text(..text-args)
 
   body
 
